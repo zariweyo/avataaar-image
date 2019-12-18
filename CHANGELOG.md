@@ -1,3 +1,7 @@
+## [1.0.7] - 18/12/19
+
+* Update pubspec versions
+
 ## [1.0.6] - 11/05/19
 
 * Update pubspec versions
