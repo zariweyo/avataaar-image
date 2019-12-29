@@ -1,3 +1,7 @@
+## [1.0.8] - 29/12/19
+
+* Fix image provider breaking change
+
 ## [1.0.7] - 18/12/19
 
 * Update pubspec versions
