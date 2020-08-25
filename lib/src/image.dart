@@ -1,15 +1,16 @@
 import 'package:avataaar_image/src/api.dart';
 import 'package:avataaar_image/src/avataaar.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+typedef AvataaarBuilder = Widget Function(BuildContext context, String url);
 
 class AvataaarImage extends StatelessWidget with AvataaarsApi {
   AvataaarImage({
     Key key,
     @required this.avatar,
-    this.width: 64.0,
+    this.format,
     this.placeholder,
-    this.errorImage,
   })  : this.builder = null,
         super(key: key);
 
@@ -17,26 +18,32 @@ class AvataaarImage extends StatelessWidget with AvataaarsApi {
     Key key,
     @required this.builder,
     @required this.avatar,
-    this.width: 64.0,
+    this.format,
   })  : this.placeholder = null,
-        this.errorImage = null,
         super(key: key);
 
-  final Widget Function(BuildContext context, String url) builder;
   final Avataaar avatar;
+  final AvataaarFormat format;
+  final AvataaarBuilder builder;
   final Widget placeholder;
-  final Widget errorImage;
-  final double width;
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = getUrl(avatar, AvataaarFormat.png(width));
-    return builder != null
-        ? builder(context, imageUrl)
-        : CachedNetworkImage(
-            imageUrl: imageUrl,
-            placeholder: placeholder != null ? (_, __) => placeholder : null,
-            errorWidget: errorImage != null ? (_, __, ___) => errorImage : null,
-          );
+    final imageFormat = format ?? AvataaarFormat.svg();
+    final imageUrl = getUrl(avatar, imageFormat);
+    if (builder != null) {
+      return builder(context, imageUrl);
+    } else if (imageFormat is AvataaarSvg) {
+      return SvgPicture.network(
+        imageUrl,
+        placeholderBuilder: placeholder != null ? (_) => placeholder : null,
+      );
+    } else {
+      return Image.network(
+        imageUrl,
+        loadingBuilder:
+            placeholder != null ? (_, __, ___) => placeholder : null,
+      );
+    }
   }
 }
