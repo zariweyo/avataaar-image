@@ -30,7 +30,7 @@ class AvataaarImage extends StatelessWidget with AvataaarsApi {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = getUrl(avatar, width);
+    final imageUrl = getUrl(avatar, AvataaarFormat.png(width));
     return builder != null
         ? builder(context, imageUrl)
         : CachedNetworkImage(
