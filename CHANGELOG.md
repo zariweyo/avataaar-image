@@ -1,3 +1,8 @@
+## [1.1.0] - 26/08/20
+
+* Add support for svg avatars
+* Remove cahced_network_image dependency
+
 ## [1.0.8] - 29/12/19
 
 * Fix image provider breaking change
