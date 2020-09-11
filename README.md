@@ -45,12 +45,10 @@ Avataaar.random(
 ```Dart
 AvataaarImage(
   avatar: avatar,
-  errorImage: Icon(Icons.error),
   placeholder: CircularProgressIndicator(),
-  width: 128.0,
 );
 
-// By default package will use CachedNetworkImage to render the image. If it doesn't fit your 
+// By default Image/SvgPicture widget will be used to render the image. If it doesn't fit your 
 // needs it's possible to use [builder] constructor and create widget for given image url:
 AvataaarImage.builder(
   avatar: avatar,
@@ -58,7 +56,19 @@ AvataaarImage.builder(
     // ...
   },
 )
+
+// It is also possible to choose between SVG (default) and PNG format of the image.
+// To do that, pass additional [AvataaarFormat] object as [format] parameter: 
+AvataaarImage(
+  avatar: avatar,
+  format: AvataaarFormat.svg(),
+  // or
+  format: AvataaarFormat.png(128.0),
+);
 ```
+
+**Note:** avataaars.io PNG support [has been disabled](https://github.com/gkoberger/avataaars/issues/16) due to excesive usage of the API.
+If PNG format has to be used, you need to host the service on your own and override `AvataaarsApi.baseUrl` value.
 
 ### Persisting avatars
 
