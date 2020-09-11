@@ -16,16 +16,18 @@ class AvataaarsApi {
 }
 
 abstract class AvataaarFormat {
-  AvataaarFormat();
+  AvataaarFormat._();
 
   factory AvataaarFormat.svg() = AvataaarSvg;
   factory AvataaarFormat.png(double width) = AvataaarPng;
 }
 
-class AvataaarSvg extends AvataaarFormat {}
+class AvataaarSvg extends AvataaarFormat {
+  AvataaarSvg() : super._();
+}
 
 class AvataaarPng extends AvataaarFormat {
   final double width;
 
-  AvataaarPng(this.width);
+  AvataaarPng(this.width) : super._();
 }
